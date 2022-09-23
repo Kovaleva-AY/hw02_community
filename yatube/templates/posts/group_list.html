@@ -1,7 +1,6 @@
 {% extends "base.html" %}
-{% block title %}
+{% block title %}Текст{% endblock %}
 {% block header %}{{ group.title }} {% endblock %} 
-{% endblock %}
 {% block content %}
   <p>{{ group.description|linebreaks }}</p>
   {% for post in posts %}
