@@ -1,7 +1,12 @@
 {% extends "base.html" %}
-{% block header %}{{ group.description|linebreaks }}{% endblock %} 
+{% block header %}
+  Записи сообщества {{ group }}
+{% endblock %} 
+{% block title %}
+  Записи сообщества {{ group }}
+{% endblock %}
 {% block content %}
-  <p>{% block title %}Записи сообщества {{ group }}.{% endblock %}</p>
+  <p>{{ group.description }}</p>
   {% for post in posts %}
     <ul>
       <li>
