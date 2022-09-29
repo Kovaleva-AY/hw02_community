@@ -1,5 +1,3 @@
-from django.shortcuts import render
-
 from django.views.generic.base import TemplateView
 # Create your views here.
 
@@ -9,4 +7,4 @@ class AboutAuthorView(TemplateView):
 
 
 class AboutTechView(TemplateView):
-    template_name = 'about/tech.html'    
+    template_name = 'about/tech.html'

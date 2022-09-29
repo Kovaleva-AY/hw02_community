@@ -39,22 +39,24 @@ def profile(request, username):
     paginator = Paginator(author.posts.all(), 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    post_count = posts.count()
     context = {
         'author': author,
         'paginator': paginator,
         'page_number': page_number,
         'page_obj': page_obj,
         'posts': posts,
-        'post_count': post_count
     }
     return render(request, 'posts/profile.html', context)
 
 
 def post_detail(request, post_id):
-    posts = get_object_or_404(Post, pk=post_id)
+    post = get_object_or_404(Post, pk=post_id)
+    posts = Post.objects.all()
+    author_total_posts = Post.objects.filter(author_id=post.author.pk).__len__
     context = {
         'posts': posts,
+        'post': post,
+        'author_total_posts': author_total_posts,
 
     }
     return render(request, 'posts/post_detail.html', context) 
