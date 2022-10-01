@@ -1,6 +1,7 @@
 from django.core.paginator import Paginator
-from django.shortcuts import render, get_object_or_404
-
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
+from .forms import PostForm
 from .models import Post, Group, User
 
 POSTS_NUMBER = 10
@@ -36,6 +37,7 @@ def group_posts(request, slug):
 def profile(request, username):
     author = get_object_or_404(User, username=username)
     posts = Post.objects.all()
+    author_total_posts = Post.objects.filter(author_id=author.pk).__len__
     paginator = Paginator(author.posts.all(), 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -45,6 +47,7 @@ def profile(request, username):
         'page_number': page_number,
         'page_obj': page_obj,
         'posts': posts,
+        'author_total_posts': author_total_posts,
     }
     return render(request, 'posts/profile.html', context)
 
@@ -59,5 +62,21 @@ def post_detail(request, post_id):
         'author_total_posts': author_total_posts,
 
     }
-    return render(request, 'posts/post_detail.html', context) 
-    
+    return render(request, 'posts/post_detail.html', context)
+
+
+
+@login_required
+def post_create(request):
+    form = PostForm(request.POST or None)
+    if not form.is_valid():
+        return render(request, 'create_post.html', {'form': form})
+    post = form.save(commit=False)
+    post.author = request.user
+    post.save()
+    return redirect("index")
+
+
+
+
+      

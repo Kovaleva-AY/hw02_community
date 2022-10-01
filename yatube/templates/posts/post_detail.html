@@ -12,14 +12,11 @@
         <aside class="col-12 col-md-3">
           <ul class="list-group list-group-flush">
             <li class="list-group-item">
-
-      
               Дата публикации:  {{ post.pub_date|date:"d E Y" }} <!-- 31 июля 1854 --> 
             </li>
             <!-- если у поста есть группа -->   
             <li class="list-group-item">
-              Группа: {{ group.title }}<!-- Название группы -->
-          
+              Группа: {{ post.group.title }}<!-- Название группы -->
               {% if post.group %}
               <a href="{% url 'posts:group_posts' post.group.slug %}">
               {% endif %}
@@ -40,12 +37,10 @@
           </ul>
         </aside>
         <article class="col-12 col-md-9">
-          
           <p>
             {{post.text}} 
           </p>
         </article>
       </div> 
     </main>
-    
     {% endblock %}

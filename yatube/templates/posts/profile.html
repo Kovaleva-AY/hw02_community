@@ -5,10 +5,9 @@
   {% for post in page_obj %}   
     <!-- Подключены иконки, стили и заполенены мета теги -->
     {% block title %} Профайл пользователя {{ author.get_full_name }}<!--Лев Толстой-->
-    {% endblock %} 
-              
-        <h1>Все посты пользователя {{ author }}<!--Лев Толстой--> </h1>
-        <h3>Всего постов: {{ post_detail.author_total_posts }}<!-- --> </h3>   
+    {% endblock %}       
+        <h1>Все посты пользователя {{ post.author.get_full_name }}<!--Лев Толстой--> </h1>
+        <h3>Всего постов: {{ author_total_posts }}<!-- --> </h3>   
         <article>
           <ul>
             <li>
